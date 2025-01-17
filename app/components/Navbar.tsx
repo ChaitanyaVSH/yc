@@ -25,7 +25,7 @@ const Navbar = async () => {
                                     redirectTo: "/"
                                 })
                             }}>
-                                <button type="submit">Sign out</button>
+                                <button type="submit">Logout</button>
                             </form>
 
                             <Link href={`/user/${session?.user?.id}}`}>
