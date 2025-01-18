@@ -63,7 +63,9 @@ const Navbar = async () => {
 
                                 This reference would call the actual server action on server.
                             */}
-                            <button onClick={loginHandler}>Login</button>
+                            <button onClick={loginHandler}>
+                                <span className="text-100">Login</span>
+                            </button>
 
                             {/*
                                 Below is the incorrect way.
