@@ -13,6 +13,10 @@ const Navbar = async () => {
         await signOut()
     }
 
+    const loginHandler = async () => {
+        "use server"
+        await signIn("github")
+    }
     async function _signIn() {
         "use server"
         console.log("I'm executed on server. Sign In");
@@ -59,7 +63,7 @@ const Navbar = async () => {
 
                                 This reference would call the actual server action on server.
                             */}
-                            <button onClick={_signIn}>Login</button>
+                            <button onClick={loginHandler}>Login</button>
 
                             {/*
                                 Below is the incorrect way.
