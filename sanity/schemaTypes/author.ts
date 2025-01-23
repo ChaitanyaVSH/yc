@@ -5,7 +5,7 @@ export const author = defineType({
     name: "author",
     title: "Author",
     type: "document",
-    icon: UserIcon,
+    icon: UserIcon, //Mainly shown on local sanity studio.
     fields: [
         defineField({
             name: "id",
