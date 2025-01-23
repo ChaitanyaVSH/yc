@@ -5,13 +5,13 @@ import Image from "next/image";
 import {Button} from "@/components/ui/button"
 
 const StartupCard = ({post}: {post: StartupTypeCard}) => {
-    const {id, views, createdAt, title, category, image, description, author: {id: authorId, name, image: authorImage}} = post
+    const {id, views, _createdAt, title, category, image, description, author: {id: authorId, name, image: authorImage}} = post
 
     return (
         <li className="startup-card group">
             <div className="flex-between">
                 <p className="startup_card_date">
-                    {formatDate(createdAt)}
+                    {formatDate(_createdAt)}
                 </p>
                 <div className="flex gap-1.5">
                     <EyeIcon className="size-6 text-primary"/>

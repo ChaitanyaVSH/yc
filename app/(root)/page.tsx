@@ -1,99 +1,16 @@
 import StartupCard from "@/components/StartupCard";
 import SearchForm from "@/components/SearchForm";
 import { randomUUID } from "crypto";
+import { client } from "@/sanity/lib/client";
+import { STARTUPS_QUERY } from "@/sanity/lib/queries";
 
 export default async function Home({searchParams}: {
   searchParams: Promise<{query?: string}>
 }){
 
   const query = (await searchParams).query;
-
-  const posts = [
-    {
-      createdAt: new Date(),
-      id: 1,
-      views: 55,
-      author: {
-        name: "Charan",
-        id: 1,
-        image: "https://png.pngtree.com/png-clipart/20191122/original/pngtree-user-icon-isolated-on-abstract-background-png-image_5192004.jpg"
-      },
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, nobis!",
-      image: "https://media.istockphoto.com/id/1414699113/photo/small-robot-assistant-work-with-graphic-display.jpg?s=612x612&w=0&k=20&c=gGfba4h97L1tFjVWkPTiZUlfNHtkrf0fHhsmkY4S5Ng=",
-      category: "Robots",
-      title: "We Robots'25"
-    },
-    {
-      createdAt: new Date(),
-      id: 1,
-      views: 55,
-      author: {
-        name: "Charan",
-        id: 1,
-        image: "https://png.pngtree.com/png-clipart/20191122/original/pngtree-user-icon-isolated-on-abstract-background-png-image_5192004.jpg"
-      },
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, nobis!",
-      image: "https://media.istockphoto.com/id/1414699113/photo/small-robot-assistant-work-with-graphic-display.jpg?s=612x612&w=0&k=20&c=gGfba4h97L1tFjVWkPTiZUlfNHtkrf0fHhsmkY4S5Ng=",
-      category: "Robots",
-      title: "We Robots'25"
-    },
-    {
-      createdAt: new Date(),
-      id: 1,
-      views: 55,
-      author: {
-        name: "Charan",
-        id: 1,
-        image: "https://png.pngtree.com/png-clipart/20191122/original/pngtree-user-icon-isolated-on-abstract-background-png-image_5192004.jpg"
-      },
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, nobis!",
-      image: "https://media.istockphoto.com/id/1414699113/photo/small-robot-assistant-work-with-graphic-display.jpg?s=612x612&w=0&k=20&c=gGfba4h97L1tFjVWkPTiZUlfNHtkrf0fHhsmkY4S5Ng=",
-      category: "Robots",
-      title: "We Robots'25"
-    },
-    {
-      createdAt: new Date(),
-      id: 1,
-      views: 55,
-      author: {
-        name: "Charan",
-        id: 1,
-        image: "https://png.pngtree.com/png-clipart/20191122/original/pngtree-user-icon-isolated-on-abstract-background-png-image_5192004.jpg"
-      },
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, nobis!",
-      image: "https://media.istockphoto.com/id/1414699113/photo/small-robot-assistant-work-with-graphic-display.jpg?s=612x612&w=0&k=20&c=gGfba4h97L1tFjVWkPTiZUlfNHtkrf0fHhsmkY4S5Ng=",
-      category: "Robots",
-      title: "We Robots'25"
-    },
-    {
-      createdAt: new Date(),
-      id: 1,
-      views: 55,
-      author: {
-        name: "Charan",
-        id: 1,
-        image: "https://png.pngtree.com/png-clipart/20191122/original/pngtree-user-icon-isolated-on-abstract-background-png-image_5192004.jpg"
-      },
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, nobis!",
-      image: "https://media.istockphoto.com/id/1414699113/photo/small-robot-assistant-work-with-graphic-display.jpg?s=612x612&w=0&k=20&c=gGfba4h97L1tFjVWkPTiZUlfNHtkrf0fHhsmkY4S5Ng=",
-      category: "Robots",
-      title: "We Robots'25"
-    },
-    {
-      createdAt: new Date(),
-      id: 1,
-      views: 55,
-      author: {
-        name: "Charan",
-        id: 1,
-        image: "https://png.pngtree.com/png-clipart/20191122/original/pngtree-user-icon-isolated-on-abstract-background-png-image_5192004.jpg"
-      },
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, nobis!",
-      image: "https://media.istockphoto.com/id/1414699113/photo/small-robot-assistant-work-with-graphic-display.jpg?s=612x612&w=0&k=20&c=gGfba4h97L1tFjVWkPTiZUlfNHtkrf0fHhsmkY4S5Ng=",
-      category: "Robots",
-      title: "We Robots'25"
-    },
-  ]
+  const posts = await client.fetch(STARTUPS_QUERY);
+  console.log(JSON.stringify(posts, null, 2));
 
   return (
     <>
