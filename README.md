@@ -34,3 +34,4 @@ email:chaitu.vsh@gmail.com
 ```
 
 Automatic types generation
+Live Content API for faster/real time updates
