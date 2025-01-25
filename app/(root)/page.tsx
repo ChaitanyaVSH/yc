@@ -1,8 +1,8 @@
 import StartupCard from "@/components/StartupCard";
 import SearchForm from "@/components/SearchForm";
-import { randomUUID } from "crypto";
 import { client } from "@/sanity/lib/client";
 import { STARTUPS_QUERY } from "@/sanity/lib/queries";
+
 
 export default async function Home({searchParams}: {
   searchParams: Promise<{query?: string}>
@@ -10,7 +10,6 @@ export default async function Home({searchParams}: {
 
   const query = (await searchParams).query;
   const posts = await client.fetch(STARTUPS_QUERY);
-  console.log(JSON.stringify(posts, null, 2));
 
   return (
     <>
@@ -28,16 +27,14 @@ export default async function Home({searchParams}: {
       </p>
 
       <ul className="mt-7 card_grid">
-        {
-          posts?.length > 0 ? (
-            posts.map(
-              (post: StartupTypeCard, index) => <StartupCard key={post?.id + randomUUID()} post={post}/>
-            )
+          {posts?.length > 0 ? (
+            posts.map((post) => (
+              <StartupCard key={post?._createdAt} post={post} />
+            ))
           ) : (
-            <p className="no-results">No Startups found</p>
-          )
-        }
-      </ul>
+            <p className="no-results">No startups found</p>
+          )}
+        </ul>
     </section>
     </>
   )

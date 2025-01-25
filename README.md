@@ -32,3 +32,5 @@ name:Chaitu
 image:https://avatars.githubusercontent.com/u/36126860?s=400&v=4
 email:chaitu.vsh@gmail.com
 ```
+
+Automatic types generation
