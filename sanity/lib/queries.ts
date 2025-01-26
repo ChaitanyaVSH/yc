@@ -7,7 +7,6 @@ export const STARTUPS_QUERY = defineQuery(
     category match $search || 
     author->name match $search] | order(_createdAt desc) {
   title,
-  slug,
   views,
   category,
   _createdAt,
@@ -19,6 +18,26 @@ export const STARTUPS_QUERY = defineQuery(
     id,
     name,
     image,
-    email
   }
+}`);
+
+export const FETCH_STARTUP_BY_ID_QUERY = defineQuery(
+  `*[_type=="startup" && _id == $id][0]{
+title,
+slug,
+views,
+category,
+_createdAt,
+image,
+_id,
+description,
+pitch,
+author -> {
+  _id,
+  id,
+  name,
+  image,
+  email,
+  bio
+}
 }`);
