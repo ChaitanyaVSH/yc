@@ -18,6 +18,7 @@ export const STARTUPS_QUERY = defineQuery(
     id,
     name,
     image,
+    username
   }
 }`);
 
@@ -38,6 +39,14 @@ author -> {
   name,
   image,
   email,
-  bio
+  bio,
+  username
 }
 }`);
+
+export const STARTUP_VIEWS_QUERY = defineQuery(
+  `*[_type=="startup" && _id == $id][0] {
+  _id, views
+  }
+  `
+);
