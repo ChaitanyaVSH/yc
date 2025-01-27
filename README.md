@@ -1,11 +1,15 @@
-### Tech stuff
+## Tech stuff
 
-#### Next Auth
+### Next Auth
 1. https://authjs.dev/
 
-#### Sanity CMS
-Sample GROQ request
-```
+### Tailwind
+1. Style overrides
+2. Inbuilt animations
+
+### Sanity CMS
+##### Sample GROQ request
+
 *[_type=="startup"]{
   id,
   title,
@@ -17,10 +21,9 @@ Sample GROQ request
     email
   }
 }
-```
 
-Response to above query
-```
+
+##### Response to above query
 […] 1 item
 0:{…} 5 properties
 id:null
@@ -31,7 +34,10 @@ author:{…} 3 properties
 name:Chaitu
 image:https://avatars.githubusercontent.com/u/36126860?s=400&v=4
 email:chaitu.vsh@gmail.com
-```
 
-Automatic types generation
-Live Content API for faster/real time updates
+
+
+##### Key benefits of Sanity
+* Automatic types generation
+* Live Content API for faster/real time updates
+* Separate client for write/update use-cases
