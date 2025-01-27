@@ -2,6 +2,7 @@ import { client } from "@/sanity/lib/client";
 import { writeClient } from "@/sanity/lib/writeClient";
 import Ping from "./Ping";
 import { STARTUP_VIEWS_QUERY } from "@/sanity/lib/queries";
+import { unstable_after as after } from "next/server";
 
 const View = async ({id}: {
     id: string
@@ -11,10 +12,12 @@ const View = async ({id}: {
     .withConfig({useCdn: false})
     .fetch(STARTUP_VIEWS_QUERY, {id});
 
-    await writeClient.
-    patch(id)
-    .set({views: totalViews + 1})
-    .commit()
+    after(async () => {
+        await writeClient
+        .patch(id)
+        .set({views: totalViews + 1})
+        .commit()
+    });
 
 
     return (
