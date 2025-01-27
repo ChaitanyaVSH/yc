@@ -1,4 +1,5 @@
 import { client } from "@/sanity/lib/client";
+import { writeClient } from "@/sanity/lib/writeClient";
 import Ping from "./Ping";
 import { STARTUP_VIEWS_QUERY } from "@/sanity/lib/queries";
 
@@ -10,7 +11,10 @@ const View = async ({id}: {
     .withConfig({useCdn: false})
     .fetch(STARTUP_VIEWS_QUERY, {id});
 
-    // TODO :: Update the number of views when someone views this post.
+    await writeClient.
+    patch(id)
+    .set({views: totalViews + 1})
+    .commit()
 
 
     return (

@@ -172,7 +172,7 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: sanity/lib/queries.ts
 // Variable: STARTUPS_QUERY
-// Query: *[_type=="startup" &&     !defined($search) ||     title match $search ||     category match $search ||     author->name match $search] | order(_createdAt desc) {  title,  views,  category,  _createdAt,  image,  _id,  description,  author -> {    _id,    id,    name,    image,  }}
+// Query: *[_type=="startup" &&     !defined($search) ||     title match $search ||     category match $search ||     author->name match $search] | order(_createdAt desc) {  title,  views,  category,  _createdAt,  image,  _id,  description,  author -> {    _id,    id,    name,    image,    username  }}
 export type STARTUPS_QUERYResult = Array<{
   title: null;
   views: null;
@@ -204,10 +204,11 @@ export type STARTUPS_QUERYResult = Array<{
     id: number | null;
     name: string | null;
     image: string | null;
+    username: string | null;
   } | null;
 }>;
 // Variable: FETCH_STARTUP_BY_ID_QUERY
-// Query: *[_type=="startup" && _id == $id][0]{title,slug,views,category,_createdAt,image,_id,description,pitch,author -> {  _id,  id,  name,  image,  email,  bio}}
+// Query: *[_type=="startup" && _id == $id][0]{title,slug,views,category,_createdAt,image,_id,description,pitch,author -> {  _id,  id,  name,  image,  email,  bio,  username}}
 export type FETCH_STARTUP_BY_ID_QUERYResult = {
   title: string | null;
   slug: Slug | null;
@@ -225,14 +226,22 @@ export type FETCH_STARTUP_BY_ID_QUERYResult = {
     image: string | null;
     email: string | null;
     bio: string | null;
+    username: string | null;
   } | null;
+} | null;
+// Variable: STARTUP_VIEWS_QUERY
+// Query: *[_type=="startup" && _id == $id][0] {  _id, views  }
+export type STARTUP_VIEWS_QUERYResult = {
+  _id: string;
+  views: number | null;
 } | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type==\"startup\" && \n    !defined($search) || \n    title match $search || \n    category match $search || \n    author->name match $search] | order(_createdAt desc) {\n  title,\n  views,\n  category,\n  _createdAt,\n  image,\n  _id,\n  description,\n  author -> {\n    _id,\n    id,\n    name,\n    image,\n  }\n}": STARTUPS_QUERYResult;
-    "*[_type==\"startup\" && _id == $id][0]{\ntitle,\nslug,\nviews,\ncategory,\n_createdAt,\nimage,\n_id,\ndescription,\npitch,\nauthor -> {\n  _id,\n  id,\n  name,\n  image,\n  email,\n  bio\n}\n}": FETCH_STARTUP_BY_ID_QUERYResult;
+    "*[_type==\"startup\" && \n    !defined($search) || \n    title match $search || \n    category match $search || \n    author->name match $search] | order(_createdAt desc) {\n  title,\n  views,\n  category,\n  _createdAt,\n  image,\n  _id,\n  description,\n  author -> {\n    _id,\n    id,\n    name,\n    image,\n    username\n  }\n}": STARTUPS_QUERYResult;
+    "*[_type==\"startup\" && _id == $id][0]{\ntitle,\nslug,\nviews,\ncategory,\n_createdAt,\nimage,\n_id,\ndescription,\npitch,\nauthor -> {\n  _id,\n  id,\n  name,\n  image,\n  email,\n  bio,\n  username\n}\n}": FETCH_STARTUP_BY_ID_QUERYResult;
+    "*[_type==\"startup\" && _id == $id][0] {\n  _id, views\n  }\n  ": STARTUP_VIEWS_QUERYResult;
   }
 }
