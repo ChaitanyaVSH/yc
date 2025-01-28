@@ -27,6 +27,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
 
       if(existingUser) return true;
+    },
+    async jwt({token, account, profile}) {
+      if(account && profile) {
+        const user = await client.fetch(AUTHOR_BY_GITHUB_ID_QUERY, {id: profile?.id})
+        token.id = user?._id
+      }
+
+      return token;
+    },
+    async session({session, token}) {
+      Object.assign(session, {author_id: token.id})
+      return session
     }
-  }
+  },
 });
