@@ -26,6 +26,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           image,
           bio: bio || "A cool bio..."
         })
+
+        // Explicitly return true here also so that after adding the user to DB, overall sign in would be successful.
+        return true;
       }
 
       if(existingUser) return true;
