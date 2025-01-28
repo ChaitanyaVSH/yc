@@ -2,26 +2,24 @@ import Link from "next/link"
 import Image from "next/image"
 import { auth, signIn, signOut } from "@/auth"
 
+// Below are async server actions that can be called with form actions or
+// can be passed to client component event handlers.
+
+// Having server actions outside the component will prevent recreation on renders.
+async function _signOut() {
+    "use server"
+    console.log("I'm executed on server. Sign Out");
+    await signOut()
+};
+
+const loginHandler = async () => {
+    "use server"
+    console.log("I'm executed on server. Sign In");
+    await signIn("github")
+};
+
 const Navbar = async () => {
     const session = await auth()
-
-    // Below are async server actions that can be called with form actions or
-    // can be passed to client component event handlers.
-    async function _signOut() {
-        "use server"
-        console.log("I'm executed on server. Sign Out");
-        await signOut()
-    }
-
-    const loginHandler = async () => {
-        "use server"
-        await signIn("github")
-    }
-    async function _signIn() {
-        "use server"
-        console.log("I'm executed on server. Sign In");
-        await signIn("github")
-    }
 
     return (
         <header className="px-5 py-3 bg-white shadow-sm font-work-sans">
@@ -37,7 +35,9 @@ const Navbar = async () => {
                                 <span>Create</span>
                             </Link>
 
-                            <button onClick={_signOut}>Logout</button>
+                            <form action={_signOut}>
+                                <button type="submit">Logout</button>
+                            </form>
 
                             <Link href={`/user/${session?.user?.id}}`}>
                                 <span>{session?.user?.name}</span>
@@ -48,11 +48,11 @@ const Navbar = async () => {
                             {/*
                                 Below is the jugad way of using server actions with only forms
                             */}
-                            {/* <form action={_signIn}>
+                            <form action={loginHandler}>
                                 <button type="submit">
                                     Login
                                 </button>
-                            </form> */}
+                            </form>
 
                             {/*
                                 Below is much cleaner way of using server actions.
@@ -63,8 +63,9 @@ const Navbar = async () => {
 
                                 This reference would call the actual server action on server.
                             */}
+                            {/* Below approach was having some issues after changes in package lock.json */}
                             <button onClick={loginHandler}>
-                                <span className="text-100">Login</span>
+                                <span className="text-100">Login Button</span>
                             </button>
 
                             {/*
