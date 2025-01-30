@@ -20,7 +20,6 @@ const loginHandler = async () => {
 
 const Navbar = async () => {
     const session = await auth();
-    console.log("SESSION", session);
 
     return (
         <header className="px-5 py-3 bg-white shadow-sm font-work-sans">
