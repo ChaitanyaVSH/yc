@@ -6,19 +6,80 @@ import { Textarea } from "./ui/textarea";
 import MDEditor from "@uiw/react-md-editor";
 import { Button } from "./ui/button";
 import { Send } from "lucide-react";
+import { z } from "zod";
+import { formSchema } from "@/lib/validation";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 const StartupForm = () => {
 
-    const _isPending = false;
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [pitch, setPitch] = useState("");
-    const [state, dispatch, isPending] = useActionState(() => {}, {})
-    console.log(state);
+    const { toast } = useToast();
+    const router = useRouter();
+
+    const handleFormSubmit = async (prevState: any, formData: FormData) => {
+        try {
+            const formValues = {
+                title: formData.get("title") as string,
+                description: formData.get("description") as string,
+                category: formData.get("category") as string,
+                link: formData.get("link") as string,
+                pitch
+            }
+
+            await formSchema.parseAsync(formValues);
+
+            // const result = await createIdea(prevState, formData, pitch);
+            // console.log(result);
+            // if(result.status == "SUCCESS") {
+            //     toast({
+            //         title: "Success",
+            //         description: "Your startup has been submitted successfully.",
+            //         variant: "default"
+            //     });
+            //     router.push(`/startup/${result.id}}`)
+            // }
+            // return result;
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                const fieldErrors = error.flatten().fieldErrors;
+                console.log("fieldErrors", fieldErrors);
+                setErrors(fieldErrors as unknown as Record<string, string>);
+                toast({
+                    title: "Validation error.",
+                    description: "Please check the form fields.",
+                    variant: "destructive",
+                });
+                return {
+                    ...prevState,
+                    error: "Validation error.",
+                    status: "ERROR"
+                }
+            }
+
+            toast({
+                title: "Unexpected error.",
+                description: "Please check the form fields.",
+                variant: "destructive"
+            });
+
+            return {
+                ...prevState,
+                error: "Something went wrong.",
+                status: "ERROR"
+            }
+
+        }
+    }
+
+    const [state, formAction, isPending] = useActionState(handleFormSubmit, {
+        error: "",
+        status: "INITIAL"
+    });
 
     return (
-        <form action={async () => {
-            console.log("Form submitted");
-        }} className="startup-form">
+        <form action={formAction} className="startup-form">
             <div>
                 <label htmlFor="title" className="startup-form_label">Title</label>
                 <Input
