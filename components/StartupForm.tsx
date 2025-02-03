@@ -10,6 +10,7 @@ import { z } from "zod";
 import { formSchema } from "@/lib/validation";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { createStartup } from "@/lib/actions/startupActions";
 
 const StartupForm = () => {
 
@@ -30,17 +31,17 @@ const StartupForm = () => {
 
             await formSchema.parseAsync(formValues);
 
-            // const result = await createIdea(prevState, formData, pitch);
-            // console.log(result);
-            // if(result.status == "SUCCESS") {
-            //     toast({
-            //         title: "Success",
-            //         description: "Your startup has been submitted successfully.",
-            //         variant: "default"
-            //     });
-            //     router.push(`/startup/${result.id}}`)
-            // }
-            // return result;
+            const result = await createStartup(prevState, formData, pitch);
+            console.log(result);
+            if(result.status == "SUCCESS") {
+                toast({
+                    title: "Success",
+                    description: "Your startup has been submitted successfully.",
+                    variant: "default"
+                });
+                router.push(`/startup/${result.id}`)
+            }
+            return result;
         } catch (error) {
             if (error instanceof z.ZodError) {
                 const fieldErrors = error.flatten().fieldErrors;
