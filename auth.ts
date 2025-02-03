@@ -9,8 +9,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({
       user: {name, email, image},
-      account,
-      profile: {bio, login, id}
+      profile: {id, login, bio}
     }) {
       const existingUser = await client
       .withConfig({useCdn: false})
@@ -27,11 +26,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           bio: bio || "A cool bio..."
         })
 
-        // Explicitly return true here also so that after adding the user to DB, overall sign in would be successful.
-        return true;
       }
 
-      if(existingUser) return true;
+      // Explicitly return true here also so that after adding the user to DB, overall sign in would be successful.
+      return true;
     },
     async jwt({token, account, profile}) {
       if(account && profile) {

@@ -39,7 +39,7 @@ const StartupForm = () => {
                     description: "Your startup has been submitted successfully.",
                     variant: "default"
                 });
-                router.push(`/startup/${result.id}`)
+                router.push(`/startup/${result._id}`)
             }
             return result;
         } catch (error) {
