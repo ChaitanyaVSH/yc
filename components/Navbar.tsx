@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { auth, signIn, signOut } from "@/auth"
+import { BadgePlus, LogOut } from "lucide-react";
 
 // Below are async server actions that can be called with form actions or
 // can be passed to client component event handlers.
@@ -32,11 +33,15 @@ const Navbar = async () => {
                     {session && session?.user ? (
                         <>
                             <Link href={"/startup/create"}>
-                                <span>Create</span>
+                                <span className="max-sm:hidden">Create</span>
+                                <BadgePlus className="size-6 sm:hidden"/>
                             </Link>
 
                             <form action={_signOut}>
-                                <button type="submit">Logout</button>
+                                <button type="submit">
+                                    <span className="max-sm:hidden">Logout</span>
+                                    <LogOut className="size-6 sm:hidden text-red-500"/>
+                                </button>
                             </form>
 
                             <Link href={`/user/${session?.user?.id}}`}>
@@ -64,9 +69,9 @@ const Navbar = async () => {
                                 This reference would call the actual server action on server.
                             */}
                             {/* Below approach was having some issues after changes in package lock.json */}
-                            <button onClick={loginHandler}>
+                            {/* <button onClick={loginHandler}>
                                 <span className="text-100">Login Button</span>
-                            </button>
+                            </button> */}
 
                             {/*
                                 Below is the incorrect way.
