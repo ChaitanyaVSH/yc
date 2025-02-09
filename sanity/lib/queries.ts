@@ -62,3 +62,22 @@ export const AUTHOR_BY_GITHUB_ID_QUERY = defineQuery(`
   id
   }
 `);
+
+export const FETCH_STARTUPS_BY_AUTHOR_ID_QUERY = defineQuery(`
+  *[_type == "startup" && author->id == $id] | order(_createdAt desc) {
+  title,
+  views,
+  category,
+  _createdAt,
+  image,
+  _id,
+  description,
+  author -> {
+    _id,
+    id,
+    name,
+    image,
+    username
+  }
+  }
+`);

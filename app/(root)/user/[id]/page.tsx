@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import UserStartups from "@/components/UserStartups";
 import { client } from "@/sanity/lib/client";
 import { AUTHOR_BY_GITHUB_ID_QUERY } from "@/sanity/lib/queries";
 import Image from "next/image";
@@ -42,7 +43,7 @@ const page = async ({params}: {params: Promise<{id: string}>}) => {
           </p>
           <ul className="card_grid-sm">
             <Suspense fallback={"Loading"}>
-              {/* {TODO: User startups} */}
+              <UserStartups id={id}/>
             </Suspense>
           </ul>
         </div>
