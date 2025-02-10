@@ -34,7 +34,7 @@ const StartupCard = ({post}: {post: StartupTypeCard}) => {
 
             <div className="flex-between mt-5 gap-5">
                 <div className="flex-1">
-                    <Link href={`/users/${author?.id}`}>
+                    <Link href={`/user/${author?.id}`}>
                         <p className="text-16-medium line-clamp-1">{author?.name}</p>
                     </Link>
 
