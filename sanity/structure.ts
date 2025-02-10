@@ -6,5 +6,6 @@ export const structure: StructureResolver = (S) =>
     .title('Content')
     .items([
       S.documentTypeListItem("author").title("List of Authors"), // Needed to show types/entities in local studio.
-      S.documentTypeListItem("startup").title("List of Startups")
+      S.documentTypeListItem("startup").title("List of Startups"),
+      S.documentTypeListItem("playlist").title("Playlists")
     ])
