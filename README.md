@@ -46,4 +46,5 @@ email:chaitu.vsh@gmail.com
 ### Zod for validations
 * https://zod.dev/
 * Simple and Dependency validations are also supported.
-* 
+
+### Project is learnt
